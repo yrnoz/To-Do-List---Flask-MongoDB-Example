@@ -1,6 +1,5 @@
 from flask import Flask, render_template,request,redirect,url_for # For flask implementation
 from bson.objectid import ObjectId # For ObjectId to work
-from flask_pymongo import PyMongo
 from pymongo import MongoClient
 
 client = MongoClient("mongodb://127.0.0.1:10250/?ssl=true")

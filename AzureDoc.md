@@ -3,8 +3,8 @@ title: 'Azure Cosmos DB: Build a Flask web app with Python and the Azure Cosmos 
 description: Presents a Python Flask code sample you can use to connect to and query the Azure Cosmos DB MongoDB API
 services: cosmos-db
 documentationcenter: ''
-author: mimig1
-manager: jhubbard
+author: hshapiro
+manager: sramsay
 editor: ''
 
 ms.assetid: 
@@ -22,7 +22,7 @@ ms.author: hshapiro
 
 Azure Cosmos DB is Microsoft’s globally distributed multi-model database service. You can quickly create and query document, key/value, and graph databases, all of which benefit from the global distribution and horizontal scale capabilities at the core of Azure Cosmos DB.
 
-This quick start demonstrates how to build a Flask app with the [Azure Cosmos DB Emulator]("https://docs.microsoft.com/en-us/azure/cosmos-db/local-emulator") as well as an Azure Cosmos DB account.
+This quick start guide, uses the following [Flask example](https://github.com/CoolBoi567/To-Do-List---Flask-MongoDB-Example) and demonstrates how to build the app with the [Azure Cosmos DB Emulator]("https://docs.microsoft.com/en-us/azure/cosmos-db/local-emulator") instead of MongoDB.
 
 ## Prerequisites
 
@@ -36,85 +36,72 @@ The examples in this document will use Don Jayamanne's popular and full featured
 
 ## Clone the sample application
 
-Now let's clone a MongoDB API app from github, set the connection string, and run it. You'll see how easy it is to work with data programmatically. 
+Now let's clone a Flask-MongoDB API app from github, set the connection string, and run it. You'll see how easy it is to work with data programmatically.
 
-1. Open a git terminal window, such as git bash, and `cd` to a working directory.  
-
-2. Run the following command to clone the sample repository. 
+1. Open a git terminal window, such as git bash, and `cd` to a working directory.
+2. Run the following command to clone the sample repository.
 
     ```bash
-    git clone https://github.com/Azure-Samples/azure-cosmos-db-mongodb-dotnet-getting-started.git
+    git clone https://github.com/heatherbshapiro/To-Do-List---Flask-MongoDB-Example.git
     ```
-
-3. Then open the solution file in Visual Studio. 
+3. Run the following command to install the python modules.
+    ```bash
+    pip install -r .\requirements.txt
+    ```
+4. Open the folder in Visual Studio Code.
 
 ## Review the code
 
-Let's make a quick review of what's happening in the app. Open the **Dal.cs** file under the **DAL** directory and you'll find that these lines of code create the Azure Cosmos DB resources. 
+Let's take a quick review of what's happening in the app. Open the **test.py** file under the root directory and you'll find that these lines of code create the Azure Cosmos DB connection. The below code uses the connection string for the local CosmosDB Emulator. The password needs to be split up as seen below to accommodate for the forward slashes that cannot be parsed otherwise.
 
-* Initialize the Mongo Client.
+* Initialize the Mongo Client, Retrieve the Database and Authenticate.
 
-    ```cs
-        MongoClientSettings settings = new MongoClientSettings();
-        settings.Server = new MongoServerAddress(host, 10255);
-        settings.UseSsl = true;
-        settings.SslSettings = new SslSettings();
-        settings.SslSettings.EnabledSslProtocols = SslProtocols.Tls12;
-
-        MongoIdentity identity = new MongoInternalIdentity(dbName, userName);
-        MongoIdentityEvidence evidence = new PasswordEvidence(password);
-
-        settings.Credentials = new List<MongoCredential>()
-        {
-            new MongoCredential("SCRAM-SHA-1", identity, evidence)
-        };
-
-        MongoClient client = new MongoClient(settings);
+    ```python
+    client = MongoClient("mongodb://127.0.0.1:10250/?ssl=true") #host uri
+    db = client.test    #Select the database
+    db.authenticate(name="localhost",password='C2y6yDjf5' + r'/R' + '+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw' + r'/Jw==')
     ```
 
-* Retrieve the database and the collection.
+* Retrieve the collection or create it if it does not already exist.
 
-    ```cs
-    private string dbName = "Tasks";
-    private string collectionName = "TasksList";
-
-    var database = client.GetDatabase(dbName);
-    var todoTaskCollection = database.GetCollection<MyTask>(collectionName);
+    ```python
+    todos = db.todo #Select the collection
     ```
 
-* Retrieve all documents.
+* Create the app
 
-    ```cs
-    collection.Find(new BsonDocument()).ToList();
+    ```Python
+    app = Flask(__name__)
+    title = "TODO with Flask"
+    heading = "ToDo Reminder"
     ```
+## Run the web app
+
+1. Make sure the CosmosDB Emulator is running.
+
+2. Open a terminal window and `cd` to the directory that the app is saved in.
+
+3. Then set the environment variable for the Flask app with `set FLASK_APP=test.py` or `export FLASK_APP=test.py` if you using a Mac.
+
+4. Run the app with `flask run` and browse to [http://127.0.0.1:5000/](http://127.0.0.1:5000/).
+
+5. Add and remove tasks and see them added and changed in the collection.
 
 ## Update your connection string
 
-Now go back to the Azure portal to get your connection string information and copy it into the app.
+If you want to test the code against a live CosmosDB Account, go to the Azure portal to create an account and  get your connection string information. Then copy it into the app.
 
 1. In the [Azure portal](http://portal.azure.com/), in your Azure Cosmos DB account, in the left navigation click **Connection String**, and then click **Read-write Keys**. You'll use the copy buttons on the right side of the screen to copy the Username, Password, and Host into the Dal.cs file in the next step.
 
-2. Open the **Dal.cs** file in the **DAL** directory. 
+2. Open the **test.py** file in the root directory.
 
-3. Copy your **username** value from the portal (using the copy button) and make it the value of the **username** in your **Dal.cs** file. 
+3. Copy your **username** value from the portal (using the copy button) and make it the value of the **name** in your **test.py** file.
 
-4. Then copy your **host** value from the portal and make it the value of the **host** in your **Dal.cs** file. 
+4. Then copy your **host** value from the portal and make it the value of the MongoClient in your **test.py** file.
 
-5. Finally copy your **password** value from the portal and make it the value of the **password** in your **Dal.cs** file. 
+5. Finally copy your **password** value from the portal and make it the value of the **password** in your **test.py** file.
 
-You've now updated your app with all the info it needs to communicate with Azure Cosmos DB. 
-    
-## Run the web app
-
-1. In Visual Studio, right-click on the project in **Solution Explorer** and then click **Manage NuGet Packages**. 
-
-2. In the NuGet **Browse** box, type *MongoDB.Driver*.
-
-3. From the results, install the **MongoDB.Driver** library. This installs the MongoDB.Driver package as well as all dependencies.
-
-4. Click CTRL + F5 to run the application. Your app displays in your browser. 
-
-5. Click **Create** in the browser and create a few new tasks in your task list app.
+You've now updated your app with all the info it needs to communicate with Azure Cosmos DB.
 
 ## Review SLAs in the Azure portal
 
@@ -129,7 +116,4 @@ If you're not going to continue to use this app, delete all resources created by
 
 ## Next steps
 
-In this quickstart, you've learned how to create an Azure Cosmos DB account and run a web app using the API for MongoDB. You can now import additional data to your Cosmos DB account. 
-
-> [!div class="nextstepaction"]
-> [Import data into Azure Cosmos DB for the MongoDB API](mongodb-migrate.md)
+In this quickstart, you've learned how to create an Azure Cosmos DB account and run a Flask app using the API for MongoDB.
