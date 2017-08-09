@@ -54,7 +54,7 @@ Now let's clone a Flask-MongoDB API app from github, set the connection string, 
 
 ## Review the code
 
-Let's take a quick review of what's happening in the app. Open the **test.py** file under the root directory and you'll find that these lines of code create the Azure Cosmos DB connection. The below code uses the connection string for the local CosmosDB Emulator. The password needs to be split up as seen below to accommodate for the forward slashes that cannot be parsed otherwise.
+Let's take a quick review of what's happening in the app. Open the **app.py** file under the root directory and you'll find that these lines of code create the Azure Cosmos DB connection. The below code uses the connection string for the local CosmosDB Emulator. The password needs to be split up as seen below to accommodate for the forward slashes that cannot be parsed otherwise.
 
 * Initialize the Mongo Client, Retrieve the Database and Authenticate.
 
@@ -83,7 +83,7 @@ Let's take a quick review of what's happening in the app. Open the **test.py** f
 
 2. Open a terminal window and `cd` to the directory that the app is saved in.
 
-3. Then set the environment variable for the Flask app with `set FLASK_APP=test.py` or `export FLASK_APP=test.py` if you using a Mac.
+3. Then set the environment variable for the Flask app with `set FLASK_APP=app.py` or `export FLASK_APP=app.py` if you using a Mac.
 
 4. Run the app with `flask run` and browse to [http://127.0.0.1:5000/](http://127.0.0.1:5000/).
 
@@ -99,21 +99,29 @@ If you want to test the code against a live CosmosDB Account, go to the Azure po
 
 1. In the [Azure portal](http://portal.azure.com/), in your Azure Cosmos DB account, in the left navigation click **Connection String**, and then click **Read-write Keys**. You'll use the copy buttons on the right side of the screen to copy the Username, Password, and Host into the Dal.cs file in the next step.
 
-2. Open the **test.py** file in the root directory.
+2. Open the **app.py** file in the root directory.
 
-3. Copy your **username** value from the portal (using the copy button) and make it the value of the **name** in your **test.py** file.
+3. Copy your **username** value from the portal (using the copy button) and make it the value of the **name** in your **app.py** file.
 
-4. Then copy your **host** value from the portal and make it the value of the MongoClient in your **test.py** file.
+4. Then copy your **host** value from the portal and make it the value of the MongoClient in your **app.py** file.
 
-5. Finally copy your **password** value from the portal and make it the value of the **password** in your **test.py** file.
+5. Finally copy your **password** value from the portal and make it the value of the **password** in your **app.py** file.
 
-You've now updated your app with all the info it needs to communicate with Azure Cosmos DB.
+You've now updated your app with all the info it needs to communicate with Azure Cosmos DB. When deploying to Azure, you should remove your application keys and un-comment the section below:
+
+```python
+    client = MongoClient(os.getenv("MONGOURL"))
+    db = client.test    #Select the database
+    db.authenticate(name=os.getenv("MONGO_USERNAME"),password=os.getenv("MONGO_PASSWORD"))
+```
 
 ## Deploy to Azure
 
-To deploy this app to Azure you can create a new web app in Azure and enable continuous deployment with this github repo. 
+To deploy this app to Azure you can create a new web app in Azure and enable continuous deployment with a fork of this github repo. Please follow this [tutorial](https://docs.microsoft.com/en-us/azure/app-service-web/app-service-continuous-deployment) to set up continuous deployment with Github in Azure.
 
+You will then need to add your MONGOURL, MONGO_PASSWORD, and MONGO_USERNAME to the application settings. You can follow this [tutorial](https://docs.microsoft.com/en-us/azure/app-service-web/web-sites-configure#application-settings) to learn more about Application Settings in Azure Web Apps.
 
+If you don't want to create a fork of this repo, you can also click the deploy to Azure button below. You will then need to go into Azure and set up the application settings with your Cosmos DB account info.
 <a href="https://deploy.azure.com/?repository=https://github.com/heatherbshapiro/To-Do-List---Flask-MongoDB-Example/?ptmpl=azuredeploy.parameters.json" target="_blank">
 <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
