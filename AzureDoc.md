@@ -107,17 +107,19 @@ If you want to test the code against a live CosmosDB Account, go to the Azure po
 
 5. Finally copy your **password** value from the portal and make it the value of the **password** in your **app.py** file.
 
-You've now updated your app with all the info it needs to communicate with Azure Cosmos DB. When deploying to Azure, you should remove your application keys and un-comment the section below:
+You've now updated your app with all the info it needs to communicate with Azure Cosmos DB. You can run it the same way as before.
+
+## Deploy to Azure
+
+To deploy this app you can create a new web app in Azure and enable continuous deployment with a fork of this github repo. Please follow this [tutorial](https://docs.microsoft.com/en-us/azure/app-service-web/app-service-continuous-deployment) to set up continuous deployment with Github in Azure.
+
+When deploying to Azure, you should remove your application keys and make sure the section below is not commented out:
 
 ```python
     client = MongoClient(os.getenv("MONGOURL"))
     db = client.test    #Select the database
     db.authenticate(name=os.getenv("MONGO_USERNAME"),password=os.getenv("MONGO_PASSWORD"))
 ```
-
-## Deploy to Azure
-
-To deploy this app to Azure you can create a new web app in Azure and enable continuous deployment with a fork of this github repo. Please follow this [tutorial](https://docs.microsoft.com/en-us/azure/app-service-web/app-service-continuous-deployment) to set up continuous deployment with Github in Azure.
 
 You will then need to add your MONGOURL, MONGO_PASSWORD, and MONGO_USERNAME to the application settings. You can follow this [tutorial](https://docs.microsoft.com/en-us/azure/app-service-web/web-sites-configure#application-settings) to learn more about Application Settings in Azure Web Apps.
 
