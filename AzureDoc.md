@@ -22,17 +22,19 @@ ms.author: hshapiro
 
 Azure Cosmos DB is Microsoft’s globally distributed multi-model database service. You can quickly create and query document, key/value, and graph databases, all of which benefit from the global distribution and horizontal scale capabilities at the core of Azure Cosmos DB.
 
-This quick start guide, uses the following [Flask example](https://github.com/CoolBoi567/To-Do-List---Flask-MongoDB-Example) and demonstrates how to build the app with the [Azure Cosmos DB Emulator]("https://docs.microsoft.com/en-us/azure/cosmos-db/local-emulator") instead of MongoDB.
+This quick start guide, uses the following [Flask example](https://github.com/CoolBoi567/To-Do-List---Flask-MongoDB-Example) and demonstrates how to build the app with the [Azure Cosmos DB Emulator](https://docs.microsoft.com/en-us/azure/cosmos-db/local-emulator) instead of MongoDB.
 
 ## Prerequisites
 
-If you don’t already have Visual Studio Code installed, you can quickly install [VS Code](https://code.visualstudio.com/Download) for your platform (Windows, Mac, Linux).
+- Download the [Azure Cosmos DB Emulator](https://docs.microsoft.com/en-us/azure/cosmos-db/local-emulator). The emulator is currently only supported on Windows. The sample will also show how to use the sample with a production key from Azure, which can be done on any platform.
 
-Be sure to add Python Language support by installing one of the popular Python extensions.
-1. Select an extension.
-2. Install the extension by typing `ext install` into the Command Palette `Ctrl+Shift+P`.
+- If you don’t already have Visual Studio Code installed, you can quickly install [VS Code](https://code.visualstudio.com/Download) for your platform (Windows, Mac, Linux).
 
-The examples in this document will use Don Jayamanne's popular and full featured [Python Extension](https://marketplace.visualstudio.com/items?itemName=donjayamanne.python).
+- Be sure to add Python Language support by installing one of the popular Python extensions.
+    1. Select an extension.
+    2. Install the extension by typing `ext install` into the Command Palette `Ctrl+Shift+P`.
+
+    The examples in this document will use Don Jayamanne's popular and full featured [Python Extension](https://marketplace.visualstudio.com/items?itemName=donjayamanne.python).
 
 ## Clone the sample application
 
@@ -89,7 +91,7 @@ Let's take a quick review of what's happening in the app. Open the **test.py** f
 
 ## Update your connection string
 
-If you want to test the code against a live CosmosDB Account, go to the Azure portal to create an account and  get your connection string information. Then copy it into the app.
+If you want to test the code against a live CosmosDB Account, go to the Azure portal to create an account and get your connection string information. Then copy it into the app.
 
 1. In the [Azure portal](http://portal.azure.com/), in your Azure Cosmos DB account, in the left navigation click **Connection String**, and then click **Read-write Keys**. You'll use the copy buttons on the right side of the screen to copy the Username, Password, and Host into the Dal.cs file in the next step.
 
@@ -102,6 +104,12 @@ If you want to test the code against a live CosmosDB Account, go to the Azure po
 5. Finally copy your **password** value from the portal and make it the value of the **password** in your **test.py** file.
 
 You've now updated your app with all the info it needs to communicate with Azure Cosmos DB.
+
+## Deploy to Azure
+
+## Note
+
+If you plan to store your code in Github or other source control options, please be sure to remove your connection strings from the code. They can be set with application settings for the web app instead.
 
 ## Review SLAs in the Azure portal
 
