@@ -52,6 +52,9 @@
       }
     }
    },
+  "variables": {
+    "offerType": "Standard"
+  },
    "resources": [
       {
          "apiVersion": "2015-08-01",
@@ -104,7 +107,7 @@
                 "location": "[resourceGroup().location]",
                 "properties": {
                     "name": "[parameters('databaseAccountName')]",
-                    
+                    "databaseAccountOfferType": "[variables('offerType')]",
                     "locations": [
                     {
                         "locationName": "[resourceGroup().location]",
