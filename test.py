@@ -110,7 +110,7 @@ def about():
 	return render_template('credits.html',t=title,h=heading)
 
 if __name__ == "__main__":
-    app.run(debug=True)
-# Careful with the debug mode..
+    app.run()
+
 
 
