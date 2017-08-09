@@ -111,7 +111,7 @@ You've now updated your app with all the info it needs to communicate with Azure
 
 ## Deploy to Azure
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Fazure-quickstart-templates%2Fmaster%2F201-web-app-python%2Fazuredeploy.json" target="_blank">
+<a href="https://azuredeploy.net/?repository=https://github.com/heatherbshapiro/To-Do-List---Flask-MongoDB-Example" target="_blank">
 <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
 
