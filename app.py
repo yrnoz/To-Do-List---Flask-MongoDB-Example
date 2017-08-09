@@ -2,14 +2,15 @@ from flask import Flask, render_template,request,redirect,url_for # For flask im
 from bson import ObjectId # For ObjectId to work
 from pymongo import MongoClient
 
-client = MongoClient(MONGOURL)
-db = client.test    #Select the database
-db.authenticate(name=MONGO_USERNAME,password=MONGO_PASSWORD)
-todos = db.todo #Select the collection
 
 app = Flask(__name__)
 title = "TODO with Flask"
 heading = "ToDo Reminder"
+
+client = MongoClient(MONGOURL)
+db = client.test    #Select the database
+db.authenticate(name=MONGO_USERNAME,password=MONGO_PASSWORD)
+todos = db.todo #Select the collection
 
 def redirect_url():
     return request.args.get('next') or \
