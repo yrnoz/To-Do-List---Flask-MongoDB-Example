@@ -103,7 +103,7 @@ If you want to test the code against a live CosmosDB Account, go to the Azure po
 
 3. Copy your **username** value from the portal (using the copy button) and make it the value of the **name** in your **app.py** file.
 
-4. Then copy your **host** value from the portal and make it the value of the MongoClient in your **app.py** file.
+4. Then copy your **connection string** value from the portal and make it the value of the MongoClient in your **app.py** file.
 
 5. Finally copy your **password** value from the portal and make it the value of the **password** in your **app.py** file.
 
