@@ -109,8 +109,17 @@ def search():
 def about():
 	return render_template('credits.html',t=title,h=heading)
 
+
+
+
+# define for IIS module registration.
+
+wsgi_app = app.wsgi_app
+
 if __name__ == "__main__":
-    app.run()
+
+    app.run(host='0.0.0.0')
+
 
 
 
