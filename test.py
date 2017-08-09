@@ -2,9 +2,9 @@ from flask import Flask, render_template,request,redirect,url_for # For flask im
 from bson import ObjectId # For ObjectId to work
 from pymongo import MongoClient
 
-client = MongoClient("mongodb://127.0.0.1:10250/?ssl=true")
+client = MongoClient(MONGOURL)
 db = client.test    #Select the database
-db.authenticate(name="localhost",password='C2y6yDjf5' + r'/R' + '+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw' + r'/Jw==')
+db.authenticate(name=MONGO_USERNAME,password=MONGO_PASSWORD)
 todos = db.todo #Select the collection
 
 app = Flask(__name__)
