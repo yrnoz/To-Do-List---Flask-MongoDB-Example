@@ -89,6 +89,10 @@ Let's take a quick review of what's happening in the app. Open the **test.py** f
 
 5. Add and remove tasks and see them added and changed in the collection.
 
+## Create a database account
+
+[!INCLUDE [cosmos-db-create-dbaccount](../../includes/cosmos-db-create-dbaccount-mongodb.md)]
+
 ## Update your connection string
 
 If you want to test the code against a live CosmosDB Account, go to the Azure portal to create an account and get your connection string information. Then copy it into the app.
