@@ -111,7 +111,10 @@ You've now updated your app with all the info it needs to communicate with Azure
 
 ## Deploy to Azure
 
-<a href="https://azuredeploy.net/?repository=https://github.com/heatherbshapiro/To-Do-List---Flask-MongoDB-Example" target="_blank">
+To deploy this app to Azure you can create a new web app in Azure and enable continuous deployment with this github repo. 
+
+
+<a href="https://deploy.azure.com/?repository=https://github.com/heatherbshapiro/To-Do-List---Flask-MongoDB-Example/?ptmpl=parameters.azuredeploy.json" target="_blank">
 <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
 

@@ -44,7 +44,13 @@
          "metadata": {
             "description": "Describes plan's instance count"
          }
+      },
+    "databaseAccountName": {
+      "type": "string",
+      "metadata": {
+        "description": "The DocumentDB database account name."
       }
+    }
    },
    "resources": [
       {
@@ -88,10 +94,26 @@
                   "[concat('Microsoft.Web/sites/', parameters('webSiteName'))]"
                ],
                "properties": {
-                  "pythonVersion": "3.4"
+                  "pythonVersion": "2.7"
                }
+            },
+            {
+                "apiVersion": "2015-04-08",
+                "type": "Microsoft.DocumentDB/databaseAccounts",
+                "name": "[parameters('databaseAccountName')]",
+                "location": "[resourceGroup().location]",
+                "properties": {
+                    "name": "[parameters('databaseAccountName')]",
+                    
+                    "locations": [
+                    {
+                        "locationName": "[resourceGroup().location]",
+                        "failoverPriority": 0
+                    }
+                    ]
+                }
             }
-         ]
+         ]  
       }
-   ]
+   ] 
 }

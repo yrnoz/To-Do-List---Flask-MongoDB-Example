@@ -7,6 +7,9 @@
       },
       "webSiteName": {
          "value": "GEN-UNIQUE"
-      }
+      },
+      "databaseAccountName": {
+        "value": "GEN-UNIQUE"
+        }   
    }
 }
