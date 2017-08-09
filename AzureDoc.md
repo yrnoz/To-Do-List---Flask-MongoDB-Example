@@ -122,7 +122,8 @@ To deploy this app to Azure you can create a new web app in Azure and enable con
 You will then need to add your MONGOURL, MONGO_PASSWORD, and MONGO_USERNAME to the application settings. You can follow this [tutorial](https://docs.microsoft.com/en-us/azure/app-service-web/web-sites-configure#application-settings) to learn more about Application Settings in Azure Web Apps.
 
 If you don't want to create a fork of this repo, you can also click the deploy to Azure button below. You will then need to go into Azure and set up the application settings with your Cosmos DB account info.
-<a href="https://deploy.azure.com/?repository=https://github.com/heatherbshapiro/To-Do-List---Flask-MongoDB-Example/?ptmpl=azuredeploy.parameters.json" target="_blank">
+
+<a href="https://deploy.azure.com/?repository=https://github.com/heatherbshapiro/To-Do-List---Flask-MongoDB-Example" target="_blank">
 <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
 
